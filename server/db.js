@@ -1,14 +1,14 @@
 var mysql = require('mysql');
-
+var config = require('./config.js');
 var pool;
 
 exports.connect = function(done) {
     pool = mysql.createPool({
         connectionLimit: 100,
-        host     : 'localhost',
-        user     : 'root',
-        password : 'wodud1078!',
-        database : 'testdb'
+        host     : config.host,
+        user     : config.user,
+        password : config.password,
+        database : config.database
     });
 }
 
