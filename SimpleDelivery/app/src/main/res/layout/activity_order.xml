@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderActivity">
+
+    <fragment
+        android:id="@+id/order_frag_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.naver.maps.map.MapFragment">
+    </fragment>
+
+    <ImageView
+        android:id="@+id/order_iv_marker"
+        android:layout_above="@+id/order_iv_crosshair"
+        android:layout_centerHorizontal="true"
+        android:scaleY="0.9"
+        android:scaleX="0.9"
+        android:src="@drawable/navermap_default_marker_icon_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/order_iv_crosshair"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/crosshair"
+        android:layout_width="14dp"
+        android:layout_height="14dp" />
+
+    <Button
+        android:text="카메라 좌표"
+        android:id="@+id/order_btn_camPosition"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</RelativeLayout>

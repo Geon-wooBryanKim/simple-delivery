@@ -3,6 +3,10 @@
     package="com.example.shim.simpledelivery">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--위치정보활용시 추가--><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--위치정보활용시 추가--><uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--WIFI 상태활용시 추가--><uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--WIFI 상태활용시 추가--><uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -19,7 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".IndexActivity"></activity>
+        <activity android:name=".IndexActivity" />
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".ErrandActivity"></activity>
     </application>
 
 </manifest>

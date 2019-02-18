@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IndexActivity">
+    android:orientation="vertical"
+    tools:context=".IndexActivity"
+    android:layout_margin="10dp">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:layout_weight="1"
+        android:id="@+id/index_btn_errand"
+        android:text="심부름하기"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_weight="1"
+        android:id="@+id/index_btn_order"
+        android:text="주문하기"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
