@@ -2,10 +2,10 @@ package com.example.shim.simpledelivery.Model;
 
 public class User {
 
-    int id;
-    String email;
-    String phone;
-    String password;
+    private int id;
+    private String email;
+    private String phone;
+    private String password;
 
     public User(){
 

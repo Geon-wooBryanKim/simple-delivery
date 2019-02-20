@@ -1,5 +1,6 @@
 package com.example.shim.simpledelivery.Network;
 
+import com.example.shim.simpledelivery.Model.Errand;
 import com.example.shim.simpledelivery.Model.User;
 
 import okhttp3.ResponseBody;
@@ -15,6 +16,12 @@ import retrofit2.http.POST;
 public interface ErrandService {
     @GET("/user")
     Call<ResponseBody> getUser(@Header("x-access-token") String token);
+
+    @GET("/me")
+    Call<ResponseBody> getMyId(@Header("x-access-token") String token);
+
+    @POST("/errand")
+    Call<ResponseBody> createErrand(@Header("x-access-token") String token, @Body Errand errand);
 
     @POST("/user/signup")
     Call<ResponseBody> createUser(@Body User user);

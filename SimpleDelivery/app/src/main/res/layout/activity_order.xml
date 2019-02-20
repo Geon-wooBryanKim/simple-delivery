@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".OrderActivity">
 
-    <fragment
-        android:id="@+id/order_frag_map"
+    <TextView
+        android:text="상세주소"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/order_et_detailAddr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.naver.maps.map.MapFragment">
-    </fragment>
-
-    <ImageView
-        android:id="@+id/order_iv_marker"
-        android:layout_above="@+id/order_iv_crosshair"
-        android:layout_centerHorizontal="true"
-        android:scaleY="0.9"
-        android:scaleX="0.9"
-        android:src="@drawable/navermap_default_marker_icon_blue"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/order_iv_crosshair"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/crosshair"
-        android:layout_width="14dp"
-        android:layout_height="14dp" />
+    <TextView
+        android:text="심부름비"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/order_et_errandPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
+    <TextView
+        android:text="상품가격"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="상품 배달인 경우만 입력"
+        android:id="@+id/order_et_productPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="심부름 내용"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/order_et_contents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <Button
-        android:text="카메라 좌표"
-        android:id="@+id/order_btn_camPosition"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
+        android:id="@+id/order_btn_complete"
+        android:text="의뢰하기"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-
-</RelativeLayout>
+</LinearLayout>

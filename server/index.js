@@ -34,12 +34,40 @@ app.get('/user', middleware.checkToken ,function(req, res){
         if(error){
             throw error;
         }
+        console.log("verify success! user id = " + req.decoded.id);
         res.status(200).send(results);
         console.log(results);
         console.log(req.query.phone);
     });
 });
 
+//토큰이 유효한지 확인하고 유저의 id값을 response로 넘겨준다.
+app.get('/me', middleware.checkToken, function(req, res){
+    var userId = req.decoded.id;
+    res.json({
+        id : userId
+    });
+});
+
+//클라이언트로 부터 온 심부름 정보를 errand 테이블에 저장함.
+app.post('/errand', middleware.checkToken, function(req, res){
+    var buyer_id = req.decoded.id; //토큰에 해당하는 유저의 id값을 가져옴
+    var destination = req.body.destination;
+    var latitude = req.body.latitude;
+    var longitude = req.body.longitude;
+    var price = req.body.price;
+    var contents = req.body.contents;
+
+    var queryString = "INSERT INTO errand (buyer_id, destination, latitude, longitude, price, contents) VALUES (?, ?, ?, ?, ?, ?)";
+    db.get().query(queryString, [buyer_id, destination, latitude, longitude, price, contents], function(err, result){
+        if(err){
+            console.log('error is occured');
+            return res.sendStatus(400);
+        }
+        console.log('errand insert success!')
+        res.sendStatus(200);
+    })
+});
 //post방식으로 날라온 request의 body에서 이메일과 비밀번호를 꺼내 로그인 기능을 함
 app.post('/user/login', function(req, res){
     var email = req.body.email;
@@ -64,7 +92,7 @@ app.post('/user/login', function(req, res){
 
         //로그인이 성공한 경우 jwt를 통해 토큰을 만들고 res에 담아서 보내준다.
         if(result[0].password === password){
-            let token = jwt.sign({email: email}, config.secret, {expiresIn: '24h'});
+            let token = jwt.sign({id: result[0].id}, config.secret, {expiresIn: '24h'});
 
             res.json({
                 success: true,
@@ -91,7 +119,7 @@ app.post('/user/signup', function(req, res){
 
    var queryString = "insert into user (email, password, phone) values(?, ?, ?);";
 
-   db.get().query(queryString, [email, phone, password], function(err, result){
+   db.get().query(queryString, [email, password, phone], function(err, result){
        if(err){
            console.log('error is occured');
            return res.sendStatus(400);

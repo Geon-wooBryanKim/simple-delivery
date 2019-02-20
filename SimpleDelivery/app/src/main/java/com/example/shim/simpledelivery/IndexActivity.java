@@ -29,7 +29,7 @@ public class IndexActivity extends AppCompatActivity {
         btn_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(IndexActivity.this, OrderActivity.class));
+                startActivity(new Intent(IndexActivity.this, PickAddressActivity.class));
             }
         });
     }

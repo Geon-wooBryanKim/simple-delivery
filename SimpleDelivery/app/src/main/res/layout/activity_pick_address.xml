@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PickAddressActivity">
+
+    <fragment
+        android:id="@+id/pickAddress_frag_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.naver.maps.map.MapFragment">
+    </fragment>
+
+    <com.naver.maps.map.widget.LocationButtonView
+        android:id="@+id/pickAddress_locationBtnView"
+        android:layout_above="@id/pickAddress_layout_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </com.naver.maps.map.widget.LocationButtonView>
+
+    <ImageView
+        android:id="@+id/pickAddress_iv_marker"
+        android:layout_above="@+id/pickAddress_iv_crosshair"
+        android:layout_centerHorizontal="true"
+        android:scaleY="0.9"
+        android:scaleX="0.9"
+        android:src="@drawable/navermap_default_marker_icon_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/pickAddress_iv_crosshair"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/crosshair"
+        android:layout_width="14dp"
+        android:layout_height="14dp" />
+
+    <Button
+        android:text="이 위치로 설정"
+        android:id="@+id/pickAddress_btn_camPosition"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"/>
+
+    <LinearLayout
+        android:background="#ffffff"
+        android:id="@+id/pickAddress_layout_addr"
+        android:layout_above="@id/pickAddress_btn_camPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pickAddress_tv_addr"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인천시 남동구 논현동 634" />
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/pickAddress_tv_addrToggle"
+            android:text="지번 주소로 보기"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

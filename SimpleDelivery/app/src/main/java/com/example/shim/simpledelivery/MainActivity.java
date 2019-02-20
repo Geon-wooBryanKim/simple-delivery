@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         존재하지 않으면 회원가입 액티비티로 이동, 토큰은 존재하지만 유효성 검사에 실패할 경우에는 다시 로그인하여 새로운 토큰을 부여받음
         */
         if(sharedPreferences.contains("token")){
-            String token = sharedPreferences.getString("token","");
 
             //서버에 토큰 유효성 검사 후에 IndexActivity로 이동
             Retrofit retrofit = new Retrofit.Builder()
@@ -56,12 +55,16 @@ public class MainActivity extends AppCompatActivity {
                     .build();
 
             ErrandService service = retrofit.create(ErrandService.class);
+            String token = sharedPreferences.getString("token","");
+            Call<ResponseBody> call = service.getMyId(token);
 
-            Call<ResponseBody> call = service.getUser(token);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if(response.isSuccessful()){
+                        Log.d("response message: ", response.message());
+                        Log.d("response toString: ", response.toString());
+                        Log.d("response raw: ", response.raw().toString());
                         startActivity(new Intent(MainActivity.this, IndexActivity.class));
                     }else{
                         Toast.makeText(getApplicationContext(),"토큰이 만료되었거나 유효하지 않습니다. 다시 로그인해주세요", Toast.LENGTH_SHORT).show();
@@ -144,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-        sharedPreferences = getPreferences(0);
+        sharedPreferences = getSharedPreferences("tokenInfo", 0);
         et_email = (EditText) findViewById(R.id.main_et_email);
         et_password = (EditText) findViewById(R.id.main_et_password);
         btn_login = (Button) findViewById(R.id.main_btn_login);
