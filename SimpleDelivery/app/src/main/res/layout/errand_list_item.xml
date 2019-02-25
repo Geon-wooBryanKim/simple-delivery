@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/errandList_tv_addressLabel"
+        android:text="주소"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@id/errandList_tv_addressLabel"
+        android:id="@+id/errandList_tv_address"
+        android:text="인천 남동구 논현동"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/errandList_tv_priceLabel"
+        android:layout_below="@id/errandList_tv_address"
+        android:text="심부름값"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@id/errandList_tv_priceLabel"
+        android:id="@+id/errandList_tv_price"
+        android:text="5000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/errandList_tv_contentsLabel"
+        android:layout_below="@id/errandList_tv_price"
+        android:text="심부름 내용"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/errandList_tv_contents"
+        android:layout_below="@id/errandList_tv_contentsLabel"
+        android:text="맥도날드에서 상하이 세트 사다주세요."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/errandList_btn_accept"
+        android:layout_alignParentRight="true"
+        android:text="심부름 수락"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/errandList_tv_contents"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e4e5e6">
+    </View>
+
+
+
+</RelativeLayout>

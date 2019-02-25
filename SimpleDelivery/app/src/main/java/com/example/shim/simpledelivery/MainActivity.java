@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shim.simpledelivery.Network.ErrandService;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         존재하지 않으면 회원가입 액티비티로 이동, 토큰은 존재하지만 유효성 검사에 실패할 경우에는 다시 로그인하여 새로운 토큰을 부여받음
         */
         if(sharedPreferences.contains("token")){
-
             //서버에 토큰 유효성 검사 후에 IndexActivity로 이동
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://10.0.2.2:5050/")

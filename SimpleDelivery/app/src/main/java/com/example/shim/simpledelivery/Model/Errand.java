@@ -1,16 +1,40 @@
 package com.example.shim.simpledelivery.Model;
 
-import java.sql.Date;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 public class Errand {
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("buyer_id")
+    @Expose
     private int buyer_id;
+    @SerializedName("porter_id")
+    @Expose
     private int porter_id;
+    @SerializedName("destination")
+    @Expose
     private String destination;
+    @SerializedName("latitude")
+    @Expose
     private double latitude;
+    @SerializedName("longitude")
+    @Expose
     private double longitude;
+    @SerializedName("price")
+    @Expose
     private int price;
+    @SerializedName("create_dateTime")
+    @Expose
     private Date create_dateTime;
+    @SerializedName("delete_dateTime")
+    @Expose
     private Date delete_dateTime;
+    @SerializedName("contents")
+    @Expose
     private String contents;
 
     public Errand(int id, int buyer_id, int porter_id, String destination, double latitude, double longitude, int price, Date create_dateTime, Date delete_dateTime, String contents) {

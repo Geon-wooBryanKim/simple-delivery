@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "941343911535",
+    "firebase_url": "https://simpledelivery-cbf17.firebaseio.com",
+    "project_id": "simpledelivery-cbf17",
+    "storage_bucket": "simpledelivery-cbf17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941343911535:android:91ccfdaecc1d222d",
+        "android_client_info": {
+          "package_name": "com.example.shim.simpledelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941343911535-ttp8oea3g0ng3m04inokl6oi4hr1tgur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shim.simpledelivery",
+            "certificate_hash": "9c3ca3356d2c2592312703d5e794a04ee6042f0e"
+          }
+        },
+        {
+          "client_id": "941343911535-q1fcr0f3us8flpbv18t7b46quedp0gpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLXV-liT5jxiMoc5hFFEIAnQKZTa34BrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941343911535-q1fcr0f3us8flpbv18t7b46quedp0gpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
