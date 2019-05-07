@@ -6,6 +6,8 @@ var FCM = require("fcm-node");
 let jwt = require("jsonwebtoken");
 let config = require("./config");
 let middleware = require("./middleware");
+var server = require("http").Server(app);
+var io = require("socket.io")(server);
 
 app.use(bodyParser.json());
 app.use(
@@ -22,6 +24,29 @@ db.connect(function(err) {
     } else {
         console.log("db connection success");
     }
+});
+
+server.listen(6060);
+
+//
+io.on("connection", function(socket) {
+    socket.emit("new message", { username: "shim jae young", message: "hello" });
+
+    socket.on("new message", function(data) {
+        console.log(data);
+        console.log("socket id : " + socket.id);
+    });
+
+    socket.on("update socket_id", function(userId) {
+        var queryString = "UPDATE user SET socket_id = ? WHERE id = ?";
+        db.get().query(queryString, [socket.id, userId], function(err, results) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log("user " + userId + " socket_id is updated!");
+        });
+    });
 });
 
 //5050포트를 열고 클라이언트 접속을 기다림.
@@ -193,6 +218,7 @@ app.patch("/errand", middleware.checkToken, function(req, res) {
     });
 });
 
+//쿼리로 buyer_id를 받아 그에 해당하는 fcmToken을 찾아서 fcm을 전송함
 app.post("/fcm", middleware.checkToken, function(req, res) {
     var queryString = "SELECT * FROM user WHERE id = ?";
     var id = req.query.buyer_id;
@@ -232,6 +258,7 @@ app.post("/fcm", middleware.checkToken, function(req, res) {
             }
             console.log("send gcm success");
             console.log(response);
+            res.sendStatus(200);
         });
     });
 });

@@ -19,13 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -38,7 +36,8 @@
         <activity android:name=".IndexActivity" />
         <activity android:name=".PickAddressActivity" />
         <activity android:name=".ErrandActivity" />
-        <activity android:name=".OrderActivity"></activity>
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

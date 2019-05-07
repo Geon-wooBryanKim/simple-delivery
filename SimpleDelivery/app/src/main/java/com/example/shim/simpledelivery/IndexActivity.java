@@ -71,6 +71,8 @@ public class IndexActivity extends AppCompatActivity {
                     }
                 });
 
+        startActivity(new Intent(IndexActivity.this, ChatActivity.class));
+
         //심부름하기 버튼 클릭시 심부름 모드 전환
         btn_errand.setOnClickListener(new View.OnClickListener() {
             @Override
