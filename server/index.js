@@ -32,9 +32,17 @@ server.listen(6060);
 io.on("connection", function(socket) {
     socket.emit("new message", { username: "shim jae young", message: "hello" });
 
-    socket.on("new message", function(data) {
-        console.log(data);
-        console.log("socket id : " + socket.id);
+    socket.on("sendToSomeone", function(message, destinationId) {
+        var queryString = "SELECT socket_id FROM USER WHERE ID = ?";
+        db.get().query(queryString, destinationId, function(err, results) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            console.log("message from client > " + message);
+            io.to(results[0].socket_id).emit("new message", { message: message });
+        });
     });
 
     socket.on("update socket_id", function(userId) {
@@ -126,6 +134,21 @@ app.get("/errand", function(req, res) {
     db.get().query(queryString, function(err, results) {
         if (err) {
             console.log("GET ERRAND FAIL :", err);
+        }
+        console.log(JSON.stringify(results));
+        res.json(results);
+    });
+});
+
+//나와 관계된 심부름만 조회 (내가 의뢰받은 심부름이거나, 주문한 심부름)
+app.get("/errand/me", middleware.checkToken, function(req, res) {
+    var id = req.decoded.id;
+    var queryString = "SELECT * FROM errand WHERE buyer_id = ? OR porter_id = ?";
+    var ary = [];
+
+    db.get().query(queryString, [id, id], function(err, results) {
+        if (err) {
+            console.log("GET MY ERRAND FAIL :", err);
         }
         console.log(JSON.stringify(results));
         res.json(results);

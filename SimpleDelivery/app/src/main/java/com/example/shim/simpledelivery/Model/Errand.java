@@ -3,9 +3,10 @@ package com.example.shim.simpledelivery.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Errand {
+public class Errand implements Serializable {
     @SerializedName("id")
     @Expose
     private int id;

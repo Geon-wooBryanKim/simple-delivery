@@ -26,6 +26,8 @@ public class IndexActivity extends AppCompatActivity {
 
     private Button btn_errand;
     private Button btn_order;
+    private Button btn_orderList;
+    private Button btn_errandList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +73,6 @@ public class IndexActivity extends AppCompatActivity {
                     }
                 });
 
-        startActivity(new Intent(IndexActivity.this, ChatActivity.class));
-
         //심부름하기 버튼 클릭시 심부름 모드 전환
         btn_errand.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,10 +88,26 @@ public class IndexActivity extends AppCompatActivity {
                 startActivity(new Intent(IndexActivity.this, PickAddressActivity.class));
             }
         });
+
+        btn_orderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(IndexActivity.this, OrderListActivity.class));
+            }
+        });
+
+        btn_errandList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(IndexActivity.this, ErrandListActivity.class));
+            }
+        });
     }
 
     private void init() {
         btn_errand = (Button) findViewById(R.id.index_btn_errand);
         btn_order = (Button) findViewById(R.id.index_btn_order);
+        btn_orderList = (Button) findViewById(R.id.index_btn_orderList);
+        btn_errandList = (Button) findViewById(R.id.index_btn_errandList);
     }
 }

@@ -33,6 +33,10 @@ public interface ErrandService {
     @GET("/errand")
     Call<List<Errand>> getErrand(@Header("x-access-token") String token);
 
+    //내가 주문한 모든 심부름 리스트를 얻어옴 id쿼리로 본인의 id를 전달
+    @GET("/errand/me")
+    Call<List<Errand>> getMyOrder(@Header("x-access-token") String token);
+
     //특정 심부름의 porter_id에 현재 유저의 id를 업데이트하고 상태를 진행중으로 업데이트 함
     @PATCH("/errand")
     Call<ResponseBody> updateErrand(@Header("x-access-token") String token, @Query("id") int id);

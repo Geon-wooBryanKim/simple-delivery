@@ -16,9 +16,23 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/index_btn_errandList"
+        android:layout_weight="1"
+        android:text="심부름내역"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
         android:layout_weight="1"
         android:id="@+id/index_btn_order"
         android:text="주문하기"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/index_btn_orderList"
+        android:layout_weight="1"
+        android:text="주문내역"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

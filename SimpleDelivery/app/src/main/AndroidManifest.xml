@@ -37,7 +37,10 @@
         <activity android:name=".PickAddressActivity" />
         <activity android:name=".ErrandActivity" />
         <activity android:name=".OrderActivity" />
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".OrderListActivity" />
+        <activity android:name=".OrderDetailActivity" />
+        <activity android:name=".ErrandListActivity"></activity>
     </application>
 
 </manifest>

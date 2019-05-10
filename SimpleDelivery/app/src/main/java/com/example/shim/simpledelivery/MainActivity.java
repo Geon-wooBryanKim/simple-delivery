@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.shim.simpledelivery.Network.ErrandService;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_login;
     private Button btn_signUp;
 
+    public static int myId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("response message: ", response.message());
                         Log.d("response toString: ", response.toString());
                         Log.d("response raw: ", response.raw().toString());
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(response.body().string());
+                            myId = Integer.parseInt(jsonObject.get("id").toString().trim());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         startActivity(new Intent(MainActivity.this, IndexActivity.class));
                     }else{
                         Toast.makeText(getApplicationContext(),"토큰이 만료되었거나 유효하지 않습니다. 다시 로그인해주세요", Toast.LENGTH_SHORT).show();
