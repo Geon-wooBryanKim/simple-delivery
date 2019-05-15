@@ -41,7 +41,7 @@ io.on("connection", function(socket) {
             }
 
             console.log("message from client > " + message);
-            io.to(results[0].socket_id).emit("new message", { message: message });
+            io.to(results[0].socket_id).emit("new message", message);
         });
     });
 
@@ -238,6 +238,36 @@ app.patch("/errand", middleware.checkToken, function(req, res) {
             res.sendStatus(200);
             console.log("update success");
         });
+    });
+});
+
+app.get("/message", middleware.checkToken, function(req, res) {
+    var id = req.decoded.id;
+    var queryString = "SELECT * FROM message WHERE sender_id = ? OR reciever_id = ?";
+
+    db.get().query(queryString, [id, id], function(err, results) {
+        if (err) {
+            console.log("GET MESSAGE FAIL :", err);
+        }
+        console.log(JSON.stringify(results));
+        res.json(results);
+    });
+});
+
+app.post("/message", middleware.checkToken, function(req, res) {
+    var sender_id = req.body.sender_id;
+    var reciever_id = req.body.reciever_id;
+    var contents = req.body.contents;
+    var timestamp = req.body.timestamp;
+
+    var queryString = "INSERT INTO (sender_id, reciever_id, contents, timestamp) message VALUES (?, ?, ?, ?)";
+
+    db.get().query(queryString, [sender_id, reciever_id, contents, timestamp], function(err, results) {
+        if (err) {
+            console.log("POST MESSAGE FAIL :", err);
+        }
+        console.log("POST MESSAGE SUCCESS");
+        res.sendStatus(200);
     });
 });
 

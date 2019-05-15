@@ -19,6 +19,7 @@ import com.example.shim.simpledelivery.OrderDetailActivity;
 import com.example.shim.simpledelivery.R;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -34,7 +35,7 @@ public class MyErrandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Retrofit retrofit;
     private int myId;
 
-    public MyErrandAdapter(Context context, int myId) {
+    public MyErrandAdapter(Context context, final int myId) {
         this.context = context;
         this.myId = myId;
 
@@ -52,6 +53,12 @@ public class MyErrandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             public void onResponse(Call<List<Errand>> call, Response<List<Errand>> response) {
                 if(response.isSuccessful()){
                     errandList = response.body();
+                    Iterator<Errand> iterator = errandList.iterator();
+                    while(iterator.hasNext()){
+                        if(iterator.next().getPorter_id() != myId){
+                            iterator.remove();
+                        }
+                    }
                     notifyDataSetChanged();
                 }
             }
@@ -73,57 +80,54 @@ public class MyErrandAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final Errand errand = errandList.get(i);
-        if(errand.getPorter_id() == myId) {
-
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, OrderDetailActivity.class);
-                    intent.putExtra("errand", errandList.get(i));
-                    context.startActivity(intent);
-                }
-            });
-            ((ErrandViewHolder) viewHolder).tv_address.setText(errand.getDestination());
-            ((ErrandViewHolder) viewHolder).tv_price.setText(String.valueOf(errand.getPrice()));
-            ((ErrandViewHolder) viewHolder).tv_contents.setText(errand.getContents());
-            ((ErrandViewHolder) viewHolder).btn_accpet.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final ErrandService errandService = retrofit.create(ErrandService.class);
-                    final String token = context.getSharedPreferences("tokenInfo", 0).getString("token", "");
-                    Call<ResponseBody> call = errandService.updateErrand(token, errand.getId());
-                    call.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(context, "수락 완료", Toast.LENGTH_SHORT).show();
-                                //해당 심부름의 porter_id와 상태 업데이트 완료 후에 주문자한테 푸시 알람 전송
-                                call = errandService.sendFcm(token, errand.getBuyer_id());
-                                call.enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                        if (response.isSuccessful()) {
-                                            Toast.makeText(context, "fcm 전송 완료", Toast.LENGTH_SHORT).show();
-                                        }
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra("errand", errandList.get(i));
+                context.startActivity(intent);
+            }
+        });
+        ((ErrandViewHolder) viewHolder).tv_address.setText(errand.getDestination());
+        ((ErrandViewHolder) viewHolder).tv_price.setText(String.valueOf(errand.getPrice()));
+        ((ErrandViewHolder) viewHolder).tv_contents.setText(errand.getContents());
+        ((ErrandViewHolder) viewHolder).btn_accpet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ErrandService errandService = retrofit.create(ErrandService.class);
+                final String token = context.getSharedPreferences("tokenInfo", 0).getString("token", "");
+                Call<ResponseBody> call = errandService.updateErrand(token, errand.getId());
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(context, "수락 완료", Toast.LENGTH_SHORT).show();
+                            //해당 심부름의 porter_id와 상태 업데이트 완료 후에 주문자한테 푸시 알람 전송
+                            call = errandService.sendFcm(token, errand.getBuyer_id());
+                            call.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(context, "fcm 전송 완료", Toast.LENGTH_SHORT).show();
                                     }
+                                }
 
-                                    @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                                    }
-                                });
-                            }
+                                }
+                            });
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                        }
-                    });
-                    Toast.makeText(context, String.valueOf(i), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+                    }
+                });
+                Toast.makeText(context, String.valueOf(i), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
